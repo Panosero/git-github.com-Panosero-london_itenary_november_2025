@@ -137,12 +137,19 @@ body {
 .sticky-nav {
     position: sticky;
     top: 0;
-    background: rgba(28, 30, 38, 0.85);
+    background: rgba(28, 30, 38, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     z-index: 1000;
     animation: slideDown 0.5s ease;
     border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
 }
 
 .nav-links {
@@ -152,6 +159,7 @@ body {
     list-style: none;
     padding: 10px 0;
     gap: 10px;
+    flex: 1;
 }
 
 .nav-links li a {
@@ -670,29 +678,31 @@ footer p {
         font-size: 2.2rem;
     }
     
-    /* Make nav horizontal scroll on tablets/phones to save vertical space */
+    /* Compact horizontal navigation for mobile */
+    .sticky-nav {
+        background: rgba(28, 30, 38, 0.98);
+    }
+    
+    .nav-inner {
+        padding: 0 10px;
+    }
+    
     .nav-links {
-        flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
+        overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
         gap: 6px;
-        padding: 8px 0;
-        scrollbar-width: thin;
-        scrollbar-color: var(--primary-color) transparent;
+        padding: 10px 0;
+        margin: 0;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+        justify-content: flex-start;
     }
     
+    /* Hide scrollbar but keep functionality */
     .nav-links::-webkit-scrollbar {
-        height: 4px;
-    }
-    
-    .nav-links::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    
-    .nav-links::-webkit-scrollbar-thumb {
-        background: var(--primary-color);
-        border-radius: 2px;
+        display: none; /* Chrome/Safari */
     }
     
     .nav-links li {
@@ -700,9 +710,16 @@ footer p {
     }
     
     .nav-links li a {
-        padding: 8px 15px;
-        font-size: 0.85rem;
+        padding: 6px 14px;
+        font-size: 0.8rem;
         white-space: nowrap;
+        border-radius: 20px;
+    }
+    
+    .theme-toggle {
+        padding: 8px 12px;
+        font-size: 1rem;
+        flex-shrink: 0;
     }
     
     .day-header {
@@ -766,15 +783,25 @@ footer p {
         font-size: 1rem;
     }
     
-    /* Further reduce nav link size on smaller phones */
+    .nav-inner {
+        padding: 0 5px;
+    }
+    
+    /* Extra compact for small phones */
+    .nav-links {
+        gap: 4px;
+        padding: 8px 0;
+    }
+    
     .nav-links li a {
-        padding: 8px 12px;
+        padding: 5px 12px;
         font-size: 0.75rem;
+        border-radius: 18px;
     }
     
     .theme-toggle { 
-        padding: 6px 12px; 
-        font-size: 0.8rem; 
+        padding: 6px 10px; 
+        font-size: 0.9rem; 
     }
 }
 
