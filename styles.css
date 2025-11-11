@@ -670,13 +670,39 @@ footer p {
         font-size: 2.2rem;
     }
     
+    /* Make nav horizontal scroll on tablets/phones to save vertical space */
     .nav-links {
-        gap: 5px;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 6px;
+        padding: 8px 0;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) transparent;
+    }
+    
+    .nav-links::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .nav-links::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .nav-links::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 2px;
+    }
+    
+    .nav-links li {
+        flex: 0 0 auto;
     }
     
     .nav-links li a {
         padding: 8px 15px;
         font-size: 0.85rem;
+        white-space: nowrap;
     }
     
     .day-header {
@@ -739,23 +765,17 @@ footer p {
     .hero-subtitle {
         font-size: 1rem;
     }
-    /* Keep nav compact: horizontal scroll chips */
-    .nav-links {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        gap: 6px;
-        padding: 8px 0;
-    }
-    .nav-links li { flex: 0 0 auto; }
+    
+    /* Further reduce nav link size on smaller phones */
     .nav-links li a {
-        text-align: center;
-        padding: 8px 14px;
+        padding: 8px 12px;
         font-size: 0.75rem;
-        white-space: nowrap;
     }
-    .theme-toggle { padding: 6px 12px; font-size: 0.8rem; }
+    
+    .theme-toggle { 
+        padding: 6px 12px; 
+        font-size: 0.8rem; 
+    }
 }
 
 /* =====================================================
