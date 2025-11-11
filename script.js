@@ -7,10 +7,17 @@
 // INITIALIZATION
 // =====================================================
 document.addEventListener('DOMContentLoaded', () => {
+    initializeTheme();
     initializeCollapsibleSections();
     loadBookingState();
     initializeSmoothScrolling();
     initializeBookingCheckboxes();
+
+    // Attach theme toggle
+    const themeBtn = document.querySelector('.theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', toggleTheme);
+    }
 
     // Show first day by default
     const firstDay = document.querySelector('.day-content');
@@ -280,6 +287,44 @@ window.resetBookings = resetBookings;
 window.expandAll = expandAll;
 window.collapseAll = collapseAll;
 window.printItinerary = printItinerary;
+
+// =====================================================
+// THEME HANDLING
+// =====================================================
+function initializeTheme() {
+    try {
+        const saved = localStorage.getItem('londonTheme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        setTheme(theme);
+    } catch (_) {
+        setTheme('dark');
+    }
+}
+
+function setTheme(theme) {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem('londonTheme', theme); } catch (_) { }
+
+    const btn = document.querySelector('.theme-toggle');
+    if (btn) {
+        btn.textContent = theme === 'dark' ? '☀' : '☾';
+        btn.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+        btn.title = btn.getAttribute('aria-label');
+    }
+
+    // Update theme-color meta for mobile browsers
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+        meta.setAttribute('content', theme === 'dark' ? '#1c1e26' : '#ffffff');
+    }
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(current === 'dark' ? 'light' : 'dark');
+}
 
 // =====================================================
 // SERVICE WORKER REGISTRATION (Optional PWA support)

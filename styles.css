@@ -815,6 +815,112 @@ footer p {
 }
 
 /* =====================================================
+   THEME TOGGLE, HERO ACTIONS, AND ENHANCEMENTS
+   ===================================================== */
+.nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.theme-toggle {
+    appearance: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-primary);
+    border-radius: 999px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-1px);
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--accent-color);
+    color: #fff;
+    padding: 10px 16px;
+    z-index: 2000;
+    border-radius: 6px;
+}
+
+.skip-link:focus {
+    left: 16px;
+    top: 16px;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.btn {
+    appearance: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-primary);
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn.primary { background: var(--primary-color); border-color: transparent; color: #fff; }
+.btn.outline { background: transparent; }
+
+/* Light theme variables */
+[data-theme="light"] {
+    --primary-color: #1a237e;
+    --primary-light: #3f51b5;
+    --accent-color: #ff1744;
+    --accent-light: #ff5c8d;
+    --bg-dark: #ffffff;
+    --bg-light: #f7f7f9;
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+}
+
+[data-theme="light"] body {
+    background: #f3f4f6;
+}
+
+[data-theme="light"] .sticky-nav {
+    background: rgba(255,255,255,0.9);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+[data-theme="light"] .day-section,
+[data-theme="light"] .booking-item,
+[data-theme="light"] .tip-card,
+[data-theme="light"] .option-card {
+    border-color: rgba(0,0,0,0.06);
+}
+
+/* Mobile nav enhancements */
+@media (max-width: 768px) {
+    .nav-inner { gap: 8px; }
+    .nav-links {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+    }
+    .nav-links li { scroll-snap-align: start; }
+}
+
+/* =====================================================
    ACCESSIBILITY
    ===================================================== */
 @media (prefers-reduced-motion: reduce) {
