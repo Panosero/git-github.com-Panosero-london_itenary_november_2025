@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadBookingState();
     initializeSmoothScrolling();
     initializeBookingCheckboxes();
+    initializeHeroButtons();
 
     // Attach theme toggle
     const themeBtn = document.querySelector('.theme-toggle');
@@ -279,6 +280,23 @@ function printItinerary() {
     setTimeout(() => {
         window.print();
     }, 500);
+}
+
+// Initialize hero action buttons
+function initializeHeroButtons() {
+    const expandBtn = document.querySelector('.hero-actions .btn.primary');
+    const collapseBtn = document.querySelectorAll('.hero-actions .btn')[1];
+    const printBtn = document.querySelector('.hero-actions .btn.outline');
+
+    if (expandBtn) {
+        expandBtn.addEventListener('click', expandAll);
+    }
+    if (collapseBtn) {
+        collapseBtn.addEventListener('click', collapseAll);
+    }
+    if (printBtn) {
+        printBtn.addEventListener('click', printItinerary);
+    }
 }
 
 // Export functions to global scope for HTML onclick handlers
