@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadBookingState();
     initializeSmoothScrolling();
     initializeBookingCheckboxes();
-    
+
     // Show first day by default
     const firstDay = document.querySelector('.day-content');
     if (firstDay) {
@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // =====================================================
 function initializeCollapsibleSections() {
     const dayHeaders = document.querySelectorAll('.day-header');
-    
+
     dayHeaders.forEach(header => {
         header.addEventListener('click', (e) => {
             toggleDay(header.closest('.day-section').id);
         });
-        
+
         // Keyboard accessibility
         header.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -37,7 +37,7 @@ function initializeCollapsibleSections() {
                 toggleDay(header.closest('.day-section').id);
             }
         });
-        
+
         header.setAttribute('role', 'button');
         header.setAttribute('tabindex', '0');
         header.setAttribute('aria-expanded', 'false');
@@ -47,14 +47,14 @@ function initializeCollapsibleSections() {
 function toggleDay(dayId) {
     const section = document.getElementById(dayId);
     if (!section) return;
-    
+
     const header = section.querySelector('.day-header');
     const content = section.querySelector('.day-content');
-    
+
     if (!content) return;
-    
+
     const isActive = content.classList.contains('active');
-    
+
     // Toggle active state
     if (isActive) {
         content.classList.remove('active');
@@ -65,7 +65,7 @@ function toggleDay(dayId) {
         header.classList.remove('collapsed');
         header.setAttribute('aria-expanded', 'true');
     }
-    
+
     // Smooth scroll to section if opening
     if (!isActive) {
         setTimeout(() => {
@@ -79,12 +79,12 @@ function toggleDay(dayId) {
 // =====================================================
 function initializeBookingCheckboxes() {
     const checkboxes = document.querySelectorAll('.booking-item input[type="checkbox"]');
-    
+
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', (e) => {
             saveBookingState();
             updateBookingProgress();
-            
+
             // Animate the parent item
             const item = e.target.closest('.booking-item');
             if (e.target.checked) {
@@ -95,18 +95,18 @@ function initializeBookingCheckboxes() {
             }
         });
     });
-    
+
     updateBookingProgress();
 }
 
 function saveBookingState() {
     const checkboxes = document.querySelectorAll('.booking-item input[type="checkbox"]');
     const state = {};
-    
+
     checkboxes.forEach(checkbox => {
         state[checkbox.id] = checkbox.checked;
     });
-    
+
     try {
         localStorage.setItem('londonItineraryBookings', JSON.stringify(state));
     } catch (e) {
@@ -118,16 +118,16 @@ function loadBookingState() {
     try {
         const savedState = localStorage.getItem('londonItineraryBookings');
         if (!savedState) return;
-        
+
         const state = JSON.parse(savedState);
-        
+
         Object.keys(state).forEach(checkboxId => {
             const checkbox = document.getElementById(checkboxId);
             if (checkbox) {
                 checkbox.checked = state[checkboxId];
             }
         });
-        
+
         updateBookingProgress();
     } catch (e) {
         console.warn('Could not load booking state from localStorage:', e);
@@ -138,7 +138,7 @@ function updateBookingProgress() {
     const checkboxes = document.querySelectorAll('.booking-item input[type="checkbox"]');
     const total = checkboxes.length;
     const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
-    
+
     // Could add a progress indicator here if desired
     console.log(`Bookings: ${checked}/${total} completed`);
 }
@@ -152,10 +152,10 @@ function resetBookings() {
                 checkbox.checked = false;
             }
         });
-        
+
         saveBookingState();
         updateBookingProgress();
-        
+
         // Animate reset
         document.querySelectorAll('.booking-item').forEach(item => {
             item.style.transform = 'scale(0.95)';
@@ -171,14 +171,14 @@ function resetBookings() {
 // =====================================================
 function initializeSmoothScrolling() {
     const navLinks = document.querySelectorAll('.nav-links a');
-    
+
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             const targetId = link.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
-            
+
             if (targetSection) {
                 // Open the section if it's a day section
                 const content = targetSection.querySelector('.day-content');
@@ -190,16 +190,16 @@ function initializeSmoothScrolling() {
                         header.setAttribute('aria-expanded', 'true');
                     }
                 }
-                
+
                 // Smooth scroll
                 const offset = 80; // Account for sticky nav
                 const targetPosition = targetSection.offsetTop - offset;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
-                
+
                 // Update active nav link
                 navLinks.forEach(l => l.parentElement.classList.remove('active'));
                 link.parentElement.classList.add('active');
@@ -222,7 +222,7 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const id = entry.target.id;
             const navLink = document.querySelector(`.nav-links a[href="#${id}"]`);
-            
+
             if (navLink) {
                 document.querySelectorAll('.nav-links li').forEach(li => {
                     li.classList.remove('active');
@@ -300,13 +300,13 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();
         expandAll();
     }
-    
+
     // Ctrl/Cmd + C: Collapse all
     if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
         e.preventDefault();
         collapseAll();
     }
-    
+
     // Ctrl/Cmd + P: Print
     if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
         e.preventDefault();
@@ -338,13 +338,13 @@ function createScrollToTopButton() {
         z-index: 1000;
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     `;
-    
+
     button.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
+
     document.body.appendChild(button);
-    
+
     // Show/hide on scroll
     window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
@@ -353,11 +353,11 @@ function createScrollToTopButton() {
             button.style.opacity = '0';
         }
     });
-    
+
     button.addEventListener('mouseenter', () => {
         button.style.transform = 'translateY(-5px)';
     });
-    
+
     button.addEventListener('mouseleave', () => {
         button.style.transform = 'translateY(0)';
     });
